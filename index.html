@@ -2,17 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Breakout</title>
-    <meta name="description" content="" />
-    <meta name="author" content="lassehav" />
-    <style rel="stylesheet"></style>
-    <script type="text/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="Animation-GameProject" />
+    <meta name="author" content="AnPham" />
+
+    <title>Let's join!</title>
+    <!-- body font -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+    <!-- <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon"> -->
+
+    <style rel="stylesheet" src="main.css"></style>
 </head>
 
 <body id="mainbody" onload="start()">
 <header>
     <h2>HTML5 Breakout Game</h2>
-    <canvas id="canvasTarget" width="500" height="600" style="border: 1px; solid black; background-color: black;"></canvas>	
+    <canvas id="canvas" width="500" height="600"></canvas>	
 </header>
+
+<!-- load Javascript -->
+<script src="js/main.js"></script>
+<script src="js/library.js"></script>
+<script src="js/BallController.js"></script>
+<script src="js/PaddleController.js"></script>
 </body>
 </html>
