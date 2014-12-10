@@ -171,7 +171,7 @@ Ball.prototype.draw = function(graphCtx)
     
 Ball.prototype.checkWallHits = function()
 {
-    // Put contconhe code to check wall hits here
+    // Put the code to check wall hits here
 }	
 
 Ball.prototype.checkClubHit = function()
