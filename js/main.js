@@ -29,9 +29,9 @@ Game.prototype.setUp = function() {
     this.player.speed = 10;
 
 	this.mainBall = new Ball(7, "white");
-	this.iniBallY = this.canvas.height - this.player.height - this.mainBall.radius;
+	this.iniBallY = this.canvas.height - this.player.height - 31 - this.mainBall.radius;
     this.mainBall.setPosition(this.canvas.width / 2, this.iniBallY);
-    this.mainBall.setStatus(30, 8);
+    this.mainBall.setStatus(40, 8);
 }
 
 Game.prototype.draw = function() {

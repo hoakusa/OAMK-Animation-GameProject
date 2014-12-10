@@ -25,48 +25,58 @@ Ball.prototype.rateY = function() {
 };
 
 Ball.prototype.checkCollision = function() {
-    if () {
 
-    }
-
-    if (this.x == (Game.leftWall + this.radius) || 
-        this.x == (Game.rightWall - this.radius) ||
-        this.y == (Game.topWall + this.radius)) {
+    if (this.x <= (game.leftWall + this.radius) || 
+        this.x >= (game.rightWall - this.radius) ||
+        this.y <= (game.topWall + this.radius)) {
 
         this.onCollision("wall");
+        console.log("collider1");
+
     }  
     
-    if (this.y >= (Game.player.y - this.radius) &&
-        this.y <= (Game.player.y + Game.player.height + this.radius) &&
-        this.x >= (Game.player.x - this.radius) && 
-        this.x <= (Game.player.x + Game.player.width + this.radius)) {
+    if (this.y >= (game.player.y - this.radius) &&
+        this.y <= (game.player.y + game.player.height + this.radius) &&
+        this.x >= (game.player.x - this.radius) && 
+        this.x <= (game.player.x + game.player.width + this.radius)) {
 
         this.onCollision("paddle");
     }
 
-    if (this.y < (Game.bottomWall + this.radius)) {
+    if (this.y > (game.bottomWall + this.radius)) {
         console.log("gameover");
-    } 
+    }
+
+} 
 
 Ball.prototype.onCollision = function(collider) {
     switch (collider) {
-        case "brick":
-            break;  
+        // case "brick":
+        //     break;  
 
         case "wall": 
-            if (this.y == (Game.topWall + this.radius)) {
-                this.rateY() *= -1;
+            if (this.y <= (game.topWall + this.radius)) {
+                this.angle = Math.PI - this.angle;
             } else {
-                this.rateX() *= -1;
+                this.angle = -this.angle;
             }
             break;
 
         case "paddle":
-            if (this.x == (Game.player.x - this.radius)) {
+            if (this.x == (game.player.x - this.radius) || 
+                this.x == (game.player.x + game.player.width + this.radius)) {
 
+                this.angle = -this.angle;
             } else {
-
+                this.angle = Math.PI - this.angle;
             }
             break;
     }
 }
+
+Ball.prototype.update = function() {
+    this.checkCollision();
+    this.x += this.rateX();
+    this.y += this.rateY();
+};
+
