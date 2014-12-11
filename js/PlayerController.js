@@ -24,7 +24,7 @@ Paddle.prototype.keyDown = function(event) {
             this.rateX = function() {
                 return -this.speed;
             }
-            break;
+            break; 
         case 39:  /* Right arrow was pressed */
             console.log("right");
             this.rateX = function() {

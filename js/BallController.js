@@ -31,8 +31,6 @@ Ball.prototype.checkCollision = function() {
         this.y <= (game.topWall + this.radius)) {
 
         this.onCollision("wall");
-        console.log("collider1");
-
     }  
     
     if (this.y >= (game.player.y - this.radius) &&
@@ -44,7 +42,7 @@ Ball.prototype.checkCollision = function() {
     }
 
     if (this.y > (game.bottomWall + this.radius)) {
-        console.log("gameover");
+        
     }
 
 } 
