@@ -15,9 +15,11 @@
     <link rel="stylesheet" href="./css/main.css"></style>
 </head>
 
-<body id="mainbody" onload="start()">
+<body id="mainbody" onload="startmap(1)">
 <header>
     <h2>HTML5 Breakout Game</h2>
+    <a href="#" onclick="game.status = 2; startmap(1)">Map 1</a>
+    <a href="#" onclick="game.status = 2; startmap(2)">Map 2</a>
     <canvas id="canvas" width="500" height="600"></canvas>	
 </header>
 

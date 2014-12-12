@@ -1,6 +1,9 @@
+//****************************************
+//  Paddle Object  - manage Paddle's state
+//****************************************  
 function Paddle(width, height, color) {
-    Shape.call(this);
-    this.width = width;
+    Shape.call(this); //call Shape object
+    this.width = width; //default values
     this.height = height;
     this.color = color;
     this.moveDir = "none";
@@ -10,12 +13,14 @@ Paddle.prototype = new Shape();
 
 Paddle.prototype.constructor = Paddle;
 
-Paddle.prototype.draw = function(context) {
+Paddle.prototype.draw = function(context) { //draw paddle
     context.fillStyle = this.color;
+    context.fillStroke = "#aaaaaa";
     context.beginPath();
     context.rect(this.x, this.y, this.width, this.height);
     context.closePath();     
     context.fill();
+    context.stroke();
 };
 
 Paddle.prototype.keyDown = function(event) {
@@ -41,9 +46,12 @@ Paddle.prototype.keyUp = function(event) {
 }
 
 Paddle.prototype.update = function() {
+    //prevent the paddle go inside wall
     if (this.moveDir == "left") {
+        //comparion the distance from the paddle to left wall and paddle's speed
         this.x = Math.max(this.x - this.speed, game.leftWall);
     } else if (this.moveDir == "right") {
+        //comparion the distance from the paddle to right wall and paddle's speed
         this.x = Math.min(this.x + this.speed, game.rightWall - this.width);
     }
 }

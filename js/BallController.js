@@ -1,6 +1,9 @@
+//****************************************
+//  Ball Object  - manage Ball's state
+//****************************************  
 function Ball(radius, color) {
-    Shape.call(this);
-    this.radius = radius;
+    Shape.call(this); //call from Shap object
+    this.radius = radius; //default value
     this.color = color;
 }
 
@@ -8,37 +11,42 @@ Ball.prototype = new Shape();
 
 Ball.prototype.constructor = Ball;
 
-Ball.prototype.draw = function(context) {
+Ball.prototype.draw = function(context) {//draw ball
     context.fillStyle = this.color;
+    context.strokeStyle = "#aaaaaa";
     context.beginPath();
     context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
     context.closePath();     
-    context.fill();    
+    context.fill();  
+    context.stroke();  
 };
 
-Ball.prototype.rateX = function() {
+Ball.prototype.rateX = function() { //update delta X
     return Math.sin(this.angle) * this.speed;
 };
 
-Ball.prototype.rateY = function() {
+Ball.prototype.rateY = function() { //update delta Y
     return -Math.cos(this.angle) * this.speed;
 };
 
 Ball.prototype.checkCollision = function() {
 
+    //Check if the Ball collides Block
     for (var i = 0; i < game.map.blocks.length; i++) {
         this.block = game.map.blocks[i];
-        this.block.index = i;    
+        this.block.index = i;     
 
         if (this.y >= (this.block.y - this.radius) &&
             this.y <= (this.block.y + this.block.height + this.radius) &&
             this.x >= (this.block.x - this.radius) && 
             this.x <= (this.block.x + this.block.width + this.radius)) {
 
-            this.onCollision("brick");
+            // only check the block that did not be destroyed.
+            if (this.block.status > 0) this.onCollision("brick");
         }
     }
 
+    //Check if the Ball collides wall
     if (this.x <= (game.leftWall + this.radius) || 
         this.x >= (game.rightWall - this.radius) ||
         this.y <= (game.topWall + this.radius)) {
@@ -46,6 +54,7 @@ Ball.prototype.checkCollision = function() {
         this.onCollision("wall");
     }  
     
+    //Check if the Ball collides Paddle
     if (this.y >= (game.player.y - this.radius) &&
         this.y <= (game.player.y + game.player.height + this.radius) &&
         this.x >= (game.player.x - this.radius) && 
@@ -54,8 +63,10 @@ Ball.prototype.checkCollision = function() {
         this.onCollision("paddle");
     }
 
-    if (this.y > (game.bottomWall + this.radius)) {
-        
+    //check Game is over when the Ball hit the bottom wall
+    if (this.y > (game.bottomWall + this.radius)) { 
+        game.status = 2; // gameover
+        game.result = 0; // Player loses
     }
 
 } 
@@ -95,12 +106,11 @@ Ball.prototype.onCollision = function(collider) {
                 this.angle = Math.PI - this.angle;
             }
             // destroy the block
-            this.block.status = this.block.status - 1;
-            if (this.block.status == 0) {
-                game.map.blocks.splice(this.block.index, 1);
-            }
+            this.block.status = this.block.status - 1; 
+            game.map.numberOfBlocks--;
 
-            // reset the position
+            //Game is over when out of blocks.
+            if (game.map.numberOfBlocks == 0) game.status = 2;
 
             break;  
 
@@ -164,7 +174,7 @@ Ball.prototype.onCollision = function(collider) {
 }
 
 Ball.prototype.update = function() {
-    this.checkCollision();
+    this.checkCollision(); 
     this.x += this.rateX();
     this.y += this.rateY();
 };
