@@ -33,12 +33,6 @@ function Map(width, height) {
     this.height = height;
 }
 
-Map.prototype.draw = function(context) {
-    for (var i = 0; i < this.blocks.length; i++) {
-        this.blocks[i].draw(context);
-    }
-}
-
 Map.prototype.setBlock = function(blockW, blockH, ColNumber, RowNumber) {
     this.blockWidth = blockW;
     this.blockHeight = blockH;
@@ -96,3 +90,14 @@ Map.prototype.setTitle = function(index) {
     }
 }
 
+Map.prototype.draw = function(context) {
+    for (var i = 0; i < this.blocks.length; i++) {
+        this.blocks[i].draw(context);
+    }
+}
+
+Map.prototype.update = function() {
+    for (var i = 0; i < this.blocks.length; i++) {
+        this.blocks[i].update;
+    }
+}

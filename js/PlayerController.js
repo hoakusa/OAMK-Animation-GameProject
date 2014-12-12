@@ -3,6 +3,7 @@ function Paddle(width, height, color) {
     this.width = width;
     this.height = height;
     this.color = color;
+    this.moveDir = "none";
 }
 
 Paddle.prototype = new Shape();
@@ -20,16 +21,12 @@ Paddle.prototype.draw = function(context) {
 Paddle.prototype.keyDown = function(event) {
     switch (event.keyCode) {
         case 37:  /* Left arrow was pressed */
-            console.log("left");
-            this.rateX = function() {
-                return -this.speed;
-            }
+            // move left
+            this.moveDir = "left";
             break; 
         case 39:  /* Right arrow was pressed */
-            console.log("right");
-            this.rateX = function() {
-                return this.speed;
-            }
+            // move right
+            this.moveDir = "right";
             break;
     }
 }
@@ -38,10 +35,15 @@ Paddle.prototype.keyUp = function(event) {
     switch (event.keyCode) {
         case 37:  /* Left arrow was pressed */
         case 39:  /* Right arrow was pressed */
-            console.log("none");
-            this.rateX = function() {
-                return 0;
-            }
+            this.moveDir = "none"
         break;
    }
+}
+
+Paddle.prototype.update = function() {
+    if (this.moveDir == "left") {
+        this.x = Math.max(this.x - this.speed, game.leftWall);
+    } else if (this.moveDir == "right") {
+        this.x = Math.min(this.x + this.speed, game.rightWall - this.width);
+    }
 }

@@ -31,3 +31,7 @@ Brick.prototype.setType = function(index) {
 	this.status = typeBrick[getIndex].status;
 }
 
+Brick.prototype.update = function() {
+	
+}
+

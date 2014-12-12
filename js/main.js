@@ -16,6 +16,13 @@ function Game() {
 
 	this.setUp();
 	this.draw();
+
+	/* the state of game, which includes:
+	0 means before starting/restarting
+	1 means currently playing
+	2 means game over 
+	*/
+	this.status = 0;
 }
 
 Game.prototype.setUp = function() {
@@ -34,10 +41,10 @@ Game.prototype.setUp = function() {
     this.player.setPosition(this.canvas.width / 2 - this.player.width / 2, this.canvas.height - this.player.height - 30);
     this.player.speed = 10;
 
-	this.mainBall = new Ball(7, "white");
+	this.mainBall = new Ball(7.5, "white");
 	this.iniBallY = this.canvas.height - this.player.height - 31 - this.mainBall.radius;
     this.mainBall.setPosition(this.canvas.width / 2, this.iniBallY);
-    this.mainBall.setStatus(30, 8);
+    this.mainBall.setStatus(30, 5);
 
     this.map = new Map(this.canvas.width, this.canvas.height);
     this.map.setBlock(this.blockWidth, this.blockHeight, this.blockCol, this.blockRow);
@@ -55,6 +62,7 @@ Game.prototype.update = function() {
 	this.mainBall.update();
 	this.player.update();
 	// this.map.update();
+	console.log(this.player);
 }
 
 Game.prototype.start = function() {
