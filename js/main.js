@@ -36,7 +36,6 @@ function Game(index) {
 }
 
 Game.prototype.setUp = function() {
-
 	// Wall informations
 	this.leftWall = 0;
 	this.rightWall = this.canvas.width;
@@ -57,7 +56,7 @@ Game.prototype.setUp = function() {
     );
     this.player.speed = 10; // the speed of paddle
 
-	this.mainBall = new Ball(7.5, "white"); // create a new ball (main ball in this game)
+	this.mainBall = new Ball(8, "white"); // create a new ball (main ball in this game)
 	this.iniBallY = this.canvas.height - this.player.height - 31 - this.mainBall.radius;
     this.mainBall.setPosition(this.canvas.width / 2, this.iniBallY);// initial position
     this.mainBall.setStatus(30, 5); // set initial angle and speed for ball
@@ -124,7 +123,7 @@ Game.prototype.screenGameover = function() {
 	}
 	
 	// Stop the Animation
-	cancelRequestAnimFrame(init);
+	cancelRequestAnimFrame(this.init);
 }
 	
 Game.prototype.update = function() {
@@ -139,7 +138,7 @@ Game.prototype.start = function() {
 
 Game.prototype.gameLoop = function() {
 	// Request a new animation frame from the browser. 
-	var init = requestAnimFrame(this.gameLoop.bind(this));
+	this.init = requestAnimFrame(this.gameLoop.bind(this));
 
 	this.screenUpdate();// Execute the update phase of the animation loop
 	this.draw(); // draw everything in canvas, render function draw()
@@ -151,7 +150,7 @@ Game.prototype.pressSpace = function(event) {
 
     	if (this.status == 0 || this.status == 2) {
     		if(this.status == 2) {
-        		this.setUp(); // reset Game object
+        		startmap(this.mapIndex);
         	} // end of reset Game object      
             this.status = 1; // switch to playing_status
         } //end of reset game state back to 1
